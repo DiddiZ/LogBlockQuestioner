@@ -1,14 +1,14 @@
 package de.diddiz.LogBlockQuestioner;
 
-import java.util.List;
+import java.util.Vector;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerListener;
 
 class LogBlockQuestionerPlayerListener extends PlayerListener
 {
-	private final List<Question> questions;
+	private final Vector<Question> questions;
 
-	public LogBlockQuestionerPlayerListener(List<Question> questions) {
+	LogBlockQuestionerPlayerListener(Vector<Question> questions) {
 		this.questions = questions;
 	}
 

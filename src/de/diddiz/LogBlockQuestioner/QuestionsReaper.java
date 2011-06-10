@@ -1,19 +1,23 @@
 package de.diddiz.LogBlockQuestioner;
 
-import java.util.List;
+import java.util.Enumeration;
+import java.util.Vector;
 
 class QuestionsReaper implements Runnable
 {
-	private final List<Question> questions;
+	private final Vector<Question> questions;
 
-	public QuestionsReaper(List<Question> questions) {
+	public QuestionsReaper(Vector<Question> questions) {
 		this.questions = questions;
 	}
 
 	@Override
 	public void run() {
-		for (final Question question : questions)
+		final Enumeration<Question> enm = questions.elements();
+		while (enm.hasMoreElements()) {
+			final Question question = enm.nextElement();
 			if (question.isExpired())
 				questions.remove(question);
+		}
 	}
 }
