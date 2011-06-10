@@ -12,9 +12,7 @@ class Question
 	private final int respondentHash;
 	private final long start;
 
-	Question(Player respondent, String questionMessage, String[] answers) throws IllegalArgumentException {
-		if (answers == null || answers.length < 2)
-			throw new IllegalArgumentException();
+	Question(Player respondent, String questionMessage, String[] answers) {
 		start = System.currentTimeMillis();
 		this.respondent = respondent;
 		respondentHash = respondent.getName().hashCode();
@@ -24,21 +22,24 @@ class Question
 			this.answers.put(ans.toLowerCase().hashCode(), ans);
 	}
 
-	synchronized String ask() throws InterruptedException, QuestionerException {
+	synchronized String ask() {
 		final StringBuilder options = new StringBuilder();
 		for (final String ans : answers.values())
 			options.append("/" + ans + ", ");
 		options.delete(options.length() - 2, options.length());
 		respondent.sendMessage(questionMessage);
 		respondent.sendMessage("- " + options + "?");
-		this.wait();
-		if (answer == null)
-			throw new QuestionerException("Timed out");
+		try {
+			this.wait();
+		} catch (final InterruptedException ex) {
+			answer = "interrupted";
+		}
 		return answer;
 	}
 
 	synchronized boolean isExpired() {
 		if (System.currentTimeMillis() - start > 300000) {
+			answer = "timed out";
 			notify();
 			return true;
 		}
