@@ -22,7 +22,7 @@ public class LogBlockQuestioner extends JavaPlugin
 		getServer().getLogger().info("LogBlockQuestioner disabled");
 	}
 
-	public String askQuestion(Player respondent, String questionMessage, String... answers) {
+	public String ask(Player respondent, String questionMessage, String... answers) {
 		final Question question = new Question(respondent, questionMessage, answers);
 		questions.add(question);
 		return question.ask();
