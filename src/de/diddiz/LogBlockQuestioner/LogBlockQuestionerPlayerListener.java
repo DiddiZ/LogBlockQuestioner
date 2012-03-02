@@ -1,10 +1,12 @@
 package de.diddiz.LogBlockQuestioner;
 
 import java.util.Vector;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerListener;
 
-class LogBlockQuestionerPlayerListener extends PlayerListener
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+
+class LogBlockQuestionerPlayerListener implements Listener
 {
 	private final Vector<Question> questions;
 
@@ -12,7 +14,7 @@ class LogBlockQuestionerPlayerListener extends PlayerListener
 		this.questions = questions;
 	}
 
-	@Override
+	@EventHandler
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		if (!event.isCancelled() && !questions.isEmpty()) {
 			final int playerHash = event.getPlayer().getName().hashCode();
