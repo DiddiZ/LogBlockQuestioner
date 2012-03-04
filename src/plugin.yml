@@ -1,7 +1,5 @@
 name: LogBlockQuestioner
-version: 0.02
+version: 0.03
 author: DiddiZ
-website:
 main: de.diddiz.LogBlockQuestioner.LogBlockQuestioner
 description: Ask questions for LogBlock.
-commands:
